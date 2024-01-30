@@ -4,7 +4,7 @@ This Flutter app showcases Riverpod's power by fetching captivating suggestions 
 
 ## For Developers
 
-- Witness Riverpod's superpowers in action: **easy dependency injection, seamless state management, and data fetching like a breeze**.
+- Witness Riverpod's superpowers in action: **easy dependency injection, seamless state management, and data caching and binding like a breeze**.
 - Dive into the code and level up your skills ⬆️.
 
 ## For Everyone
