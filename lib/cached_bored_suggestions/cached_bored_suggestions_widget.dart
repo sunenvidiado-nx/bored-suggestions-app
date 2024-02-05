@@ -12,34 +12,52 @@ class CachedBoredSuggestionsWidget extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Cached Bored Suggestions')),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
-        child: ListView.builder(
-          shrinkWrap: false,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: state.suggestions.length,
-          itemBuilder: (context, index) {
-            return Dismissible(
-              key: ValueKey(state.suggestions[index]),
-              onDismissed: (_) => notifier.removeByIndex(index),
-              child: Card(
+        child: Column(
+          children: [
+            for (final suggestion in state.suggestions)
+              _buildItem(
+                suggestion,
+                onDismissed: (_) {
+                  notifier.removeByIndex(state.suggestions.indexOf(suggestion));
+                },
+              ),
+            if (state.isLoading)
+              const Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    state.suggestions[index],
-                    style: const TextStyle(fontSize: 24),
-                  ),
+                  padding: EdgeInsets.all(30),
+                  child: CircularProgressIndicator.adaptive(),
                 ),
               ),
-            );
-          },
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: state.isLoading ? null : notifier.getNewSuggestion,
-        child: state.isLoading
-            ? const CircularProgressIndicator.adaptive()
-            : const Icon(Icons.add),
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget _buildItem(
+    String suggestion, {
+    void Function(DismissDirection)? onDismissed,
+  }) {
+    return Dismissible(
+      key: ValueKey(suggestion),
+      onDismissed: onDismissed,
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: SizedBox(
+            width: double.infinity,
+            child: Text(
+              suggestion,
+              style: const TextStyle(fontSize: 24),
+            ),
+          ),
+        ),
       ),
     );
   }

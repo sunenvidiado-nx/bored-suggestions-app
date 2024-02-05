@@ -1,5 +1,5 @@
-import 'package:bored_suggestions/cached_bored_suggestions/cached_bored_suggestions_notifier.dart';
 import 'package:bored_suggestions/cached_bored_suggestions/cached_bored_suggestions_widget.dart';
+import 'package:bored_suggestions/cached_bored_suggestions/hive_box_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';

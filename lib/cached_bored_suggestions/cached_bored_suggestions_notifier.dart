@@ -1,9 +1,11 @@
+import 'package:bored_suggestions/cached_bored_suggestions/hive_box_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:bored_suggestions/bored_suggestion/bored_suggestion_widget.dart';
 import 'package:bored_suggestions/cached_bored_suggestions/cached_bored_suggestions_state.dart';
 
-class CachedBoredSuggestionsNotifier extends Notifier<CachedBoredSuggestionsState> {
+class CachedBoredSuggestionsNotifier
+    extends Notifier<CachedBoredSuggestionsState> {
   late Box _box;
 
   @override
@@ -13,7 +15,8 @@ class CachedBoredSuggestionsNotifier extends Notifier<CachedBoredSuggestionsStat
     return CachedBoredSuggestionsState(false, _valuesInBox);
   }
 
-  List<String> get _valuesInBox => _box.isEmpty ? [] : _box.getRange(0, _box.length - 1).cast<String>();
+  List<String> get _valuesInBox =>
+      _box.isEmpty ? [] : _box.getRange(0, _box.length - 1).cast<String>();
 
   Future<void> getNewSuggestion() async {
     state = state.copyWith(isLoading: true);
@@ -31,11 +34,7 @@ class CachedBoredSuggestionsNotifier extends Notifier<CachedBoredSuggestionsStat
   }
 }
 
-final cachedBoredSuggestionsStateProvider =
-    NotifierProvider<CachedBoredSuggestionsNotifier, CachedBoredSuggestionsState>(
+final cachedBoredSuggestionsStateProvider = NotifierProvider<
+    CachedBoredSuggestionsNotifier, CachedBoredSuggestionsState>(
   CachedBoredSuggestionsNotifier.new,
 );
-
-final hiveBoxProvider = Provider((ref) {
-  return Hive.box();
-});
