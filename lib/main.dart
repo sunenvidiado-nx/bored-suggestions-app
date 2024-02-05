@@ -23,18 +23,24 @@ void main() {
 class App extends StatelessWidget {
   const App({super.key});
 
+  Map<String, WidgetBuilder> get _routes {
+    return {
+      '/': (_) => const _HomeWidget(),
+      '/bored-suggestion': (_) => const BoredSuggestionWidget(),
+      '/typed-bored-suggestion': (_) => const TypedBoredSuggestionWidget(),
+      '/bored-suggestions': (_) => const BoredSuggestionsWidget(),
+      '/cached-bored-suggestions': (_) => const CachedBoredSuggestionsWidget(),
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent)),
-      routes: {
-        '/': (_) => const _HomeWidget(),
-        '/bored-suggestion': (_) => const BoredSuggestionWidget(),
-        '/typed-bored-suggestion': (_) => const TypedBoredSuggestionWidget(),
-        '/bored-suggestions': (_) => const BoredSuggestionsWidget(),
-        '/cached-bored-suggestions': (_) => const CachedBoredSuggestionsWidget(),
-      },
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+      ),
+      routes: _routes,
     );
   }
 }

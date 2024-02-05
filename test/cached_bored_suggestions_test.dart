@@ -6,20 +6,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockBox extends Mock implements Box<dynamic> {}
+class _MockBox extends Mock implements Box<dynamic> {}
 
 void main() {
   late Box box;
 
   setUp(() {
-    box = MockBox();
+    box = _MockBox();
   });
 
   group('CachedBoredSuggestionsWidget', () {
     testWidgets('should display data from box', (tester) async {
       when(() => box.isEmpty).thenReturn(false);
       when(() => box.length).thenReturn(1);
-      when(() => box.getRange(0, 0)).thenReturn(['Test']);
+      when(() => box.getRange(any(), any())).thenReturn(['Test']);
 
       await tester.pumpWidget(
         ProviderScope(
